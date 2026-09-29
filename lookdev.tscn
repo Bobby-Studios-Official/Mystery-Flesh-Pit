@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://bjexbhfqv1806"]
+
+[ext_resource type="Texture2D" uid="uid://cbl6wbxsgoigc" path="res://assets/HDRI/b3d_night.exr" id="1_obmsl"]
+[ext_resource type="PackedScene" uid="uid://bviarcat8tbeg" path="res://assets/characters/MFP_ranger_anim_v01.glb" id="2_p7yjm"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_p7yjm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nblcn"]
+metallic = 1.0
+roughness = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nblcn"]
+top_radius = 2.0
+bottom_radius = 2.0
+height = 0.001
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_oap5q"]
+panorama = ExtResource("1_obmsl")
+
+[sub_resource type="Sky" id="Sky_5frm2"]
+sky_material = SubResource("PanoramaSkyMaterial_oap5q")
+
+[sub_resource type="Environment" id="Environment_6sh8r"]
+background_mode = 2
+sky = SubResource("Sky_5frm2")
+ambient_light_source = 3
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+
+[node name="lookdev" type="Node3D" unique_id=1497516084]
+
+[node name="studio" type="Node3D" parent="." unique_id=1551794882]
+
+[node name="ballTest" type="Node3D" parent="studio" unique_id=239109448]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.8690965, 0.6461587, 0)
+
+[node name="ball_diff" type="MeshInstance3D" parent="studio/ballTest" unique_id=139033238]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57236934, 0)
+mesh = SubResource("SphereMesh_p7yjm")
+
+[node name="ball_spec" type="MeshInstance3D" parent="studio/ballTest" unique_id=1406812481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6565897, 0)
+material_override = SubResource("StandardMaterial3D_nblcn")
+mesh = SubResource("SphereMesh_p7yjm")
+
+[node name="ground" type="MeshInstance3D" parent="studio" unique_id=1959487226]
+mesh = SubResource("CylinderMesh_nblcn")
+
+[node name="lighting" type="Node3D" parent="." unique_id=1011030053]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="lighting" unique_id=1730393012]
+environment = SubResource("Environment_6sh8r")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lighting" unique_id=1219837875]
+transform = Transform3D(0.7511596, -0.6080013, 0.25708684, 0, 0.38945436, 0.9210458, -0.6601206, -0.6918524, 0.2925424, 0, 1.5380654, -4.265021)
+light_color = Color(0.85882354, 0.6392157, 0.19607843, 1)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="MFP_ranger_anim_v01" parent="." unique_id=59283174 instance=ExtResource("2_p7yjm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.176934, 0, -0.03284645)
